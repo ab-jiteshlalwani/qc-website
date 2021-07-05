@@ -1,9 +1,8 @@
 import streamlit as st
 from PIL import Image
-import webbrowser
 
 
-def print_hi():
+def display_body():
     setup_other_components()
     st.write('# Welcome to quantumcat!')
     st.write('A high-level cross-platform open-source '
@@ -35,7 +34,7 @@ def print_hi():
 
     st.write("### Let's consider an example of generating a random number based on quantum superposition")
 
-    st.write('#### Qiskit')
+    st.write('### Qiskit')
 
     st.markdown("""
     ```      
@@ -55,7 +54,7 @@ def print_hi():
     ```
 """)
 
-    st.write('#### quantumcat')
+    st.write('### quantumcat')
 
     st.markdown("""
             ```
@@ -64,7 +63,7 @@ def print_hi():
             ```
         """)
 
-    st.write('#### To execute on other platforms, Just change the provider value to Google or Amazon')
+    st.write('### To execute on other platforms, Just change the provider value to Google or Amazon')
 
     st.markdown("""
                 ```
@@ -76,7 +75,7 @@ def print_hi():
                 ```
             """)
 
-    st.write('#### To execute on actual IBM quantum device')
+    st.write('### To execute on actual IBM quantum device')
 
     st.markdown("""
          ```
@@ -91,7 +90,7 @@ def print_hi():
 
     st.write('### Is it free?')
 
-    st.write('Absolutely! Not only quantumcat library is free, It is also open source.')
+    st.write('Absolutely! It is an open source library published under Apache-2.0 License.')
 
     github_html = """
     <a href="https://github.com/artificial-brain/quantumcat/" target="_blank" rel="noopener noreferrer">
@@ -103,9 +102,10 @@ def print_hi():
 
 
     st.write("## quantumcat API")
-    st.write('We have also exposed quantumcat\'s random number functionality '
-             'as an API(based on quantum superposition principle) so that you could '
+    st.write('We have also exposed few functionalities as an API so that you could '
              'consume it in any classical application without the need to write quantum code. ')
+
+    st.write("### Random Number")
     st.markdown("""
         ```
         # POST Request
@@ -124,18 +124,42 @@ def print_hi():
         }
         ```
     """)
+
+    st.write("### Password")
+    st.markdown("""
+           ```
+           # POST Request
+           https://api.quantumcat.io/generatePassword
+           # JSON Body
+           {
+             "length": 8
+           }
+           # Length should be between 5 - 20
+           # Password is generated in hexadecimal format using QRNG@ANU JSON API
+           ```
+       """)
+
+    st.write("### OTP")
+    st.markdown("""
+               ```
+               # POST Request
+               https://api.quantumcat.io/generateOTP
+               # 5 digits OTP is generated using QRNG@ANU JSON API
+               ```
+           """)
+
     st.write('* Please note that API is limited to 100 hits per day per IP address. '
              'For more usage kindly send us an email to entangled@artificialbrain.us')
-    st.write("## Applications")
+    st.write("## Demo of Applications")
     col1, col2 = st.beta_columns(2)
 
     col1.subheader('QuantumWheel')
     col1.write('Let Nature help you to make a quick decision based on the principle '
                'of Quantum Superposition!')
     col1.image(Image.open('assets/quantumwheel-screenshot2.jpeg'))
-    play_store_link = 'https://play.google.com/store/apps/details?id=com.artificial.brain.quantumwheel'
-    if col1.button('Download app'):
-        webbrowser.open_new_tab(play_store_link)
+    play_store_link = '[Download App](https://play.google.com/store/apps/details?id=com.artificial.brain.quantumwheel)'
+
+    col1.markdown(play_store_link, unsafe_allow_html=True)
 
     col2.subheader('Reinforcement Learning Example')
     col2.write('Teaching a computer to play Snake with Reinforcement Learning where '
@@ -145,9 +169,8 @@ def print_hi():
     video_bytes = video_file.read()
     col2.video(video_bytes)
 
-    snake_demo_url = 'https://quantumcat.io/snakedemo'
-    if col2.button('Demo'):
-        webbrowser.open_new_tab(snake_demo_url)
+    snake_demo_url = '[Snake AI Demo](https://quantumcat.io/snakedemo)'
+    col2.markdown(snake_demo_url, unsafe_allow_html=True)
 
     footer_style = """
     <p style="margin-top: 2em;">Developed by Artificial Brain LLC</p>
@@ -165,6 +188,7 @@ def print_hi():
     # col2.image(original, use_column_width=True)
 
 
+
 def setup_other_components():
     quantumcat_logo_url = "https://raw.githubusercontent.com/artificial-brain/quantumcat/" \
                      "assets/quantumcat/logo/quantum_cat_logo.jpg"
@@ -177,7 +201,19 @@ def setup_other_components():
     hide_streamlit_style = """
         <style>
             #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}                      
+            footer {visibility: hidden;}   
+            footer:after {
+                content:'Developed by Artificial Brian LLC'; 
+                visibility: visible;
+                display: block;
+                position: relative;
+                padding: 5px;
+                top: 2px;
+                font-size: 20px;
+                font-weight: 500;
+                color: rgb(38, 39, 48);
+                font-family: "IBM Plex Sans", sans-serif;
+            }                   
             </style>
        """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True)
@@ -187,5 +223,5 @@ def setup_other_components():
 
 
 if __name__ == '__main__':
-    print_hi()
+    display_body()
 
